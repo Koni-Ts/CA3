@@ -70,12 +70,19 @@ sec = LocalGetSections(courseid)
 # # Get sections ids of the course with the given numbers and given ids.
 # sec = LocalGetSections(courseid, [0, 1, 2, 3, 5, 6], [7186, 7187, 7188, 7189])
 # print(sec.getsections)
-print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
+#print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
 
-print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
+#print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
 
 
-print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
+#print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
 
 
+import os
+
+print(os.listdir())
+
+for root, dirs, files in os.walk("/workspace/CA3"):
+    for filename in files:
+        print(filename)
