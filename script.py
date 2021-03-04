@@ -62,48 +62,74 @@ class LocalGetSections(object):
 
 courseid = "18" # Exchange with valid id.
 # Get all sections of the course.
+
 sec = LocalGetSections(courseid)
-# # Get sections ids of the course with the given numbers.
-# sec = LocalGetSections(courseid, [0, 1, 2, 3, 5, 6])
-# # Get sections ids of the course with the given ids.
-# sec = LocalGetSections(courseid, [], [7186, 7187, 7188, 7189])
-# # Get sections ids of the course with the given numbers and given ids.
-# sec = LocalGetSections(courseid, [0, 1, 2, 3, 5, 6], [7186, 7187, 7188, 7189])
-# print(sec.getsections)
+
+
+#print(sec.getsections)
+
+#prints all sections readable
 #print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
 
-print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
+#print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
 
 
 #print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
 
 
-import os
 
-#print(os.listdir())
+# #for i in sec.getsections:
+#     name = i."summary"('i')
+#     if name not in results:
+#         results.append(name.text)
+# for x in results:
+#    print(x)
 
-os.listdir(path='/workspace/CA3')
 
-def getListOfFiles(dirName):
-    # create a list of file and sub directories 
-    # names in the given directory 
-    listOfFile = os.listdir(dirName)
-    allFiles = list()
-    # Iterate over all the entries
-    for entry in listOfFile:
-        # Create full path
-        fullPath = os.path.join(dirName, entry)
-        # If entry is a directory then get the list of files in this directory 
-        if os.path.isdir(fullPath):
-            allFiles = allFiles + getListOfFiles(fullPath)
-        else:
-            allFiles.append(fullPath)
+
+# import os
+
+# #print(os.listdir())
+
+# os.listdir(path='/workspace/CA3')
+
+# def getListOfFiles(dirName):
+#     # create a list of file and sub directories 
+#     # names in the given directory 
+#     listOfFile = os.listdir(dirName)
+#     allFiles = list()
+#     # Iterate over all the entries
+#     for entry in listOfFile:
+#         # Create full path
+#         fullPath = os.path.join(dirName, entry)
+#         # If entry is a directory then get the list of files in this directory 
+#         if os.path.isdir(fullPath):
+#             allFiles = allFiles + getListOfFiles(fullPath)
+#         else:
+#             allFiles.append(fullPath)
                 
-    return allFiles
+#     return allFiles
 
 
-dirName = '/workspace/CA3';
-listOfFiles = getListOfFiles(dirName)
+# dirName = '/workspace/CA3';
+# listOfFiles = getListOfFiles(dirName)
 
-print(listOfFiles)
+# print(listOfFiles)
+
+
+
+import requests
+from bs4 import BeautifulSoup
+
+URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
+page = requests.get(URL)
+
+soup = BeautifulSoup(page.content)
+
+#print(soup.prettify())
+
+hash_vid=soup.find_all(['^.{33}$']) 
+
+
+print(hash_vid)
