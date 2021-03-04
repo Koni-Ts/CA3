@@ -73,7 +73,7 @@ sec = LocalGetSections(courseid)
 #print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
 
-#print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
+print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
 
 
 #print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
