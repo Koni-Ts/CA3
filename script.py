@@ -119,17 +119,55 @@ sec = LocalGetSections(courseid)
 
 
 
-import requests
-from bs4 import BeautifulSoup
-
-URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
-page = requests.get(URL)
-
-soup = BeautifulSoup(page.content)
-
-#print(soup.prettify())
-
-hash_vid=soup.find_all(['^.{33}$']) 
 
 
-print(hash_vid)
+
+
+# import requests
+# from bs4 import BeautifulSoup
+
+# URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
+# page = requests.get(URL)
+
+# soup = BeautifulSoup(page.content)
+
+# #print(soup.prettify())
+
+# hash_vid = soup.find_all('div',class_ = 'Q5txwe')
+
+# for video in hash_vid:
+#     video_id = video.parent.parent.parent.parent.attrs['data-id']
+
+
+# print(hash_vid)
+
+
+
+
+
+
+
+
+
+
+class LocalUpdateSections(object):
+    """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
+
+    def __init__(self, cid, sectionsdata):
+        self.updatesections = call(
+            'local_wsmanagesections_update_sections', courseid=cid, sections=sectionsdata)
+
+courseid = "18"
+sec = LocalGetSections(courseid)
+data = [{'type': 'num', 'section': 0, 'summary': '', 'summaryformat': 1, 'visible': 1 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '1'}]}]
+# Assemble the correct summary
+summary = '<a href="https://mikhail-cct.github.io/ca3-test/wk1/">Week 1: Introduction</a><br>'
+
+# Assign the correct summary
+data[0]['summary'] = summary
+
+# Set the correct section number
+data[0]['section'] = 5
+
+# Write the data back to Moodle
+sec_write = LocalUpdateSections(courseid, data)
