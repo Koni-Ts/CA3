@@ -88,34 +88,8 @@ sec = LocalGetSections(courseid)
 
 
 
-# import os
-
-# #print(os.listdir())
-
-# os.listdir(path='/workspace/CA3')
-
-# def getListOfFiles(dirName):
-#     # create a list of file and sub directories 
-#     # names in the given directory 
-#     listOfFile = os.listdir(dirName)
-#     allFiles = list()
-#     # Iterate over all the entries
-#     for entry in listOfFile:
-#         # Create full path
-#         fullPath = os.path.join(dirName, entry)
-#         # If entry is a directory then get the list of files in this directory 
-#         if os.path.isdir(fullPath):
-#             allFiles = allFiles + getListOfFiles(fullPath)
-#         else:
-#             allFiles.append(fullPath)
-                
-#     return allFiles
 
 
-# dirName = '/workspace/CA3';
-# listOfFiles = getListOfFiles(dirName)
-
-# print(listOfFiles)
 
 
 
@@ -171,3 +145,43 @@ data[0]['section'] = 5
 
 # Write the data back to Moodle
 sec_write = LocalUpdateSections(courseid, data)
+
+
+
+import os
+
+def html_files(direct):
+            x = [i[2] for i in sorted(os.walk(direct))]
+            y=list()
+            for t in x:
+                for f in t:
+                    if f.endswith(".html"):
+                        y.append(f)
+            
+            print(y)
+
+def md_files(direct):
+    x = [i[2] for i in sorted(os.walk(direct))]
+    y=list()
+    for t in x:
+        for f in t:
+            if f.endswith(".md"):
+                y.append(f)
+    print(y)
+
+def pdf_files(direct):
+    x = [i[2] for i in sorted(os.walk(direct))]
+    y=list()
+    for t in x:
+        for f in t:
+            if f.endswith(".pdf"):
+                y.append(f)
+    print(y)
+
+
+
+
+
+i=html_files('/workspace/CA3')
+j=md_files('/workspace/CA3')
+k=pdf_files('/workspace/CA3')
