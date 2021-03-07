@@ -1,3 +1,4 @@
+import os
 def file_reader(direct):
     content={}
     for root, dirs, files in os.walk(direct):
@@ -13,10 +14,10 @@ def file_reader(direct):
             print ('-> {}'.format(filename))
 
 
-files_dict=file_reader("/workspace/CA3")
+files_dict=dict(file_reader("/workspace/CA3"))
 print(files_dict)
 
 
-for key, value in content.items():   # iter on both keys and values
+for key, value in files_dict.keys():   # iter on both keys and values
         if key.startswith('Folder: \/workspace\/CA3\/wk[0-9]$'):
                 print (key, value)
