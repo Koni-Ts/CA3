@@ -1,5 +1,12 @@
 from requests import get, post
 import json
+from dateutil import parser
+import datetime
+import os
+import requests
+import bs4
+from bs4 import BeautifulSoup
+import re
 
 # Module variables to connect to moodle api:
 ## Insert token and URL for your site here. 
@@ -61,64 +68,75 @@ class LocalGetSections(object):
 ################################################
 
 courseid = "18" # Exchange with valid id.
+
 # Get all sections of the course.
-
 sec = LocalGetSections(courseid)
-
-
 #print(sec.getsections)
 
-#prints all sections readable
 print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
-
 #print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
-
 
 #print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
 
 
 
-# #for i in sec.getsections:
-#     name = i."summary"('i')
-#     if name not in results:
-#         results.append(name.text)
-# for x in results:
-#    print(x)
+# #Function to read through the directory and give a dictionary of files per folder
+# functions to read through directory and grab files that end with specific type
+def folders(path):
+    y=list()
+    for f in sorted(os.listdir(path)):
+        if not f.endswith(".py") and not f.endswith(".git"):
+            y.append(f)
+    print(y)
+
+def html_files(direct):
+    x = [i[2] for i in sorted(os.walk(direct))]
+    y=list()
+    for t in x:
+        for f in t:
+            if f.endswith(".html"):
+                y.append(f)
+            
+    print(y)
+
+def md_files(direct):
+    x = [i[2] for i in sorted(os.walk(direct))]
+    y=list()
+    for t in x:
+        for f in t:
+            if f.endswith(".md"):
+                y.append(f)
+    print(y)
+
+def pdf_files(direct):
+    x = [i[2] for i in sorted(os.walk(direct))]
+    y=list()
+    for t in x:
+        for f in t:
+            if f.endswith(".pdf"):
+                y.append(f)
+    print(y)
+
+h=folders('/workspace/CA3')
+i=html_files('/workspace/CA3')
+j=md_files('/workspace/CA3')
+k=pdf_files('/workspace/CA3')
+
+combine_list=dict(zip(h,i,j,k))
 
 
 
 
+# #attempt to update sections where the values are empty " " (intetion to use items from the above list)
+# d=json.dumps(sec.getsections, indent=4, sort_keys=True )
+# for x in d:
+#     x.update((k, "value3") for k, v in d.items() if v == " ")
+# print(d)
 
 
 
-# import requests
-# from bs4 import BeautifulSoup
-
-# URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
-# page = requests.get(URL)
-
-# soup = BeautifulSoup(page.content)
-
-# #print(soup.prettify())
-
-# hash_vid = soup.find_all('div',class_ = 'Q5txwe')
-
-# for video in hash_vid:
-#     video_id = video.parent.parent.parent.parent.attrs['data-id']
-
-
-# print(hash_vid)
-
-
-
-
-
-
-
-
-
-
+# A class to update objects in the actual moodle page (code given in class)
 # class LocalUpdateSections(object):
 #     """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
 
@@ -144,50 +162,41 @@ print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
 
 
+# #screaping the google drive with BeautifulSoup to get the links and titles of video
+# URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
+# page = requests.get(URL)
 
 
+# soup = bs4.BeautifulSoup(page.text,"lxml")  
+# hash_vid = soup.find_all('div',class_ = 'Q5txwe')
+
+# #create 2 lists one with hash ids and one for the titles of the video
+# video_id=[]
+# titles=[]
+# #iterate through the soup to get the list values
+# for video in hash_vid:
+#     # print(video)
+# 	video_id.append(video.parent.parent.parent.parent.attrs['data-id'])
+# 	titles.append(video.text)
+# print(video_id)
+# print(titles)
 
 
+# #function prepend the url before the video hash ID
+# def prepend(list, str): 
+      
+#     # Using format() 
+#     str += '{0}'
+#     list = [str.format(i) for i in list] 
+#     return(list) 
 
 
+# link_prefix= "https://drive.google.com/file/d/"
+# full_link=prepend(video_id, link_prefix)
+# print(prepend(video_id, link_prefix))
 
 
+# #create a dictionary with the title of the video and url
+# link_and_title=dict(zip(titles, full_link))
 
-
-# import os
-
-# def html_files(direct):
-#             x = [i[2] for i in sorted(os.walk(direct))]
-#             y=list()
-#             for t in x:
-#                 for f in t:
-#                     if f.endswith(".html"):
-#                         y.append(f)
-            
-#             print(y)
-
-# def md_files(direct):
-#     x = [i[2] for i in sorted(os.walk(direct))]
-#     y=list()
-#     for t in x:
-#         for f in t:
-#             if f.endswith(".md"):
-#                 y.append(f)
-#     print(y)
-
-# def pdf_files(direct):
-#     x = [i[2] for i in sorted(os.walk(direct))]
-#     y=list()
-#     for t in x:
-#         for f in t:
-#             if f.endswith(".pdf"):
-#                 y.append(f)
-#     print(y)
-
-
-
-
-
-# i=html_files('/workspace/CA3')
-# j=md_files('/workspace/CA3')
-# k=pdf_files('/workspace/CA3')
+# print(link_and_title)
