@@ -69,15 +69,15 @@ class LocalGetSections(object):
 
 courseid = "18" # Exchange with valid id.
 
-# Get all sections of the course.
+# # Get all sections of the course.
 sec = LocalGetSections(courseid)
-print(sec.getsections)
+# print(sec.getsections)
 
-print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
+# print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
-print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
+# print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
 
-print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
+# print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
 
 
 
@@ -122,16 +122,17 @@ i=html_files('/workspace/CA3')
 j=md_files('/workspace/CA3')
 k=pdf_files('/workspace/CA3')
 
+#combine the lists into a dictionary
 combine_list=dict(zip(h,i,j,k))
 
 
 
 
-#attempt to update sections where the values are empty " " (intetion to use items from the above list)
-d=json.dumps(sec.getsections, indent=4, sort_keys=True )
-for x in d:
-    x.update((k, "value3") for k, v in d.items() if v == " ")
-print(d)
+# #attempt to update sections where the values are empty " " (intetion to use items from the above list)
+# d=json.dumps(sec.getsections, indent=4, sort_keys=True )
+# for x in d:
+#     x.update((k, "value3") for k, v in d.items() if v == " ")
+# print(d)
 
 
 
@@ -153,7 +154,7 @@ summary = '<a href="https://mikhail-cct.github.io/ca3-test/wk1/">Week 1: Introdu
 data[0]['summary'] = summary
 
 # Set the correct section number
-data[0]['section'] = 5
+data[0]['section'] = 8
 
 # Write the data back to Moodle
 sec_write = LocalUpdateSections(courseid, data)
