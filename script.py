@@ -69,7 +69,7 @@ sec = LocalGetSections(courseid)
 #print(sec.getsections)
 
 #prints all sections readable
-#print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
+print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
 
 #print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
@@ -85,11 +85,6 @@ sec = LocalGetSections(courseid)
 #         results.append(name.text)
 # for x in results:
 #    print(x)
-
-
-
-
-
 
 
 
@@ -124,64 +119,75 @@ sec = LocalGetSections(courseid)
 
 
 
-class LocalUpdateSections(object):
-    """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
+# class LocalUpdateSections(object):
+#     """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
 
-    def __init__(self, cid, sectionsdata):
-        self.updatesections = call(
-            'local_wsmanagesections_update_sections', courseid=cid, sections=sectionsdata)
+#     def __init__(self, cid, sectionsdata):
+#         self.updatesections = call(
+#             'local_wsmanagesections_update_sections', courseid=cid, sections=sectionsdata)
 
-courseid = "18"
-sec = LocalGetSections(courseid)
-data = [{'type': 'num', 'section': 0, 'summary': '', 'summaryformat': 1, 'visible': 1 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '1'}]}]
-# Assemble the correct summary
-summary = '<a href="https://mikhail-cct.github.io/ca3-test/wk1/">Week 1: Introduction</a><br>'
+# courseid = "18"
+# sec = LocalGetSections(courseid)
+# data = [{'type': 'num', 'section': 0, 'summary': '', 'summaryformat': 1, 'visible': 1 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '1'}]}]
+# # Assemble the correct summary
+# summary = '<a href="https://mikhail-cct.github.io/ca3-test/wk1/">Week 1: Introduction</a><br>'
 
-# Assign the correct summary
-data[0]['summary'] = summary
+# # Assign the correct summary
+# data[0]['summary'] = summary
 
-# Set the correct section number
-data[0]['section'] = 5
+# # Set the correct section number
+# data[0]['section'] = 5
 
-# Write the data back to Moodle
-sec_write = LocalUpdateSections(courseid, data)
+# # Write the data back to Moodle
+# sec_write = LocalUpdateSections(courseid, data)
 
 
 
-import os
 
-def html_files(direct):
-            x = [i[2] for i in sorted(os.walk(direct))]
-            y=list()
-            for t in x:
-                for f in t:
-                    if f.endswith(".html"):
-                        y.append(f)
+
+
+
+
+
+
+
+
+
+
+# import os
+
+# def html_files(direct):
+#             x = [i[2] for i in sorted(os.walk(direct))]
+#             y=list()
+#             for t in x:
+#                 for f in t:
+#                     if f.endswith(".html"):
+#                         y.append(f)
             
-            print(y)
+#             print(y)
 
-def md_files(direct):
-    x = [i[2] for i in sorted(os.walk(direct))]
-    y=list()
-    for t in x:
-        for f in t:
-            if f.endswith(".md"):
-                y.append(f)
-    print(y)
+# def md_files(direct):
+#     x = [i[2] for i in sorted(os.walk(direct))]
+#     y=list()
+#     for t in x:
+#         for f in t:
+#             if f.endswith(".md"):
+#                 y.append(f)
+#     print(y)
 
-def pdf_files(direct):
-    x = [i[2] for i in sorted(os.walk(direct))]
-    y=list()
-    for t in x:
-        for f in t:
-            if f.endswith(".pdf"):
-                y.append(f)
-    print(y)
-
-
+# def pdf_files(direct):
+#     x = [i[2] for i in sorted(os.walk(direct))]
+#     y=list()
+#     for t in x:
+#         for f in t:
+#             if f.endswith(".pdf"):
+#                 y.append(f)
+#     print(y)
 
 
 
-i=html_files('/workspace/CA3')
-j=md_files('/workspace/CA3')
-k=pdf_files('/workspace/CA3')
+
+
+# i=html_files('/workspace/CA3')
+# j=md_files('/workspace/CA3')
+# k=pdf_files('/workspace/CA3')
