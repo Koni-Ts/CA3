@@ -71,18 +71,17 @@ courseid = "18" # Exchange with valid id.
 
 # Get all sections of the course.
 sec = LocalGetSections(courseid)
-#print(sec.getsections)
+print(sec.getsections)
 
 print(json.dumps(sec.getsections, indent=4, sort_keys=True ))
 
-#print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
+print(json.dumps(sec.getsections[0] ['summary'], indent=4, sort_keys=True ))
 
-#print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
+print(json.dumps(sec.getsections[1] ['summary'], indent=4, sort_keys=True ))
 
 
 
 # #Function to read through the directory and give a dictionary of files per folder
-# functions to read through directory and grab files that end with specific type
 def folders(path):
     y=list()
     for f in sorted(os.listdir(path)):
@@ -128,75 +127,75 @@ combine_list=dict(zip(h,i,j,k))
 
 
 
-# #attempt to update sections where the values are empty " " (intetion to use items from the above list)
-# d=json.dumps(sec.getsections, indent=4, sort_keys=True )
-# for x in d:
-#     x.update((k, "value3") for k, v in d.items() if v == " ")
-# print(d)
+#attempt to update sections where the values are empty " " (intetion to use items from the above list)
+d=json.dumps(sec.getsections, indent=4, sort_keys=True )
+for x in d:
+    x.update((k, "value3") for k, v in d.items() if v == " ")
+print(d)
 
 
 
 # A class to update objects in the actual moodle page (code given in class)
-# class LocalUpdateSections(object):
-#     """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
+class LocalUpdateSections(object):
+    """Updates sectionnames. Requires: courseid and an array with sectionnumbers and sectionnames"""
 
-#     def __init__(self, cid, sectionsdata):
-#         self.updatesections = call(
-#             'local_wsmanagesections_update_sections', courseid=cid, sections=sectionsdata)
+    def __init__(self, cid, sectionsdata):
+        self.updatesections = call(
+            'local_wsmanagesections_update_sections', courseid=cid, sections=sectionsdata)
 
-# courseid = "18"
-# sec = LocalGetSections(courseid)
-# data = [{'type': 'num', 'section': 0, 'summary': '', 'summaryformat': 1, 'visible': 1 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '1'}]}]
-# # Assemble the correct summary
-# summary = '<a href="https://mikhail-cct.github.io/ca3-test/wk1/">Week 1: Introduction</a><br>'
+courseid = "18"
+sec = LocalGetSections(courseid)
+data = [{'type': 'num', 'section': 0, 'summary': '', 'summaryformat': 1, 'visible': 1 , 'highlight': 0, 'sectionformatoptions': [{'name': 'level', 'value': '1'}]}]
+# Assemble the correct summary
+summary = '<a href="https://mikhail-cct.github.io/ca3-test/wk1/">Week 1: Introduction</a><br>'
 
-# # Assign the correct summary
-# data[0]['summary'] = summary
+# Assign the correct summary
+data[0]['summary'] = summary
 
-# # Set the correct section number
-# data[0]['section'] = 5
+# Set the correct section number
+data[0]['section'] = 5
 
-# # Write the data back to Moodle
-# sec_write = LocalUpdateSections(courseid, data)
-
-
+# Write the data back to Moodle
+sec_write = LocalUpdateSections(courseid, data)
 
 
-# #screaping the google drive with BeautifulSoup to get the links and titles of video
-# URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
-# page = requests.get(URL)
 
 
-# soup = bs4.BeautifulSoup(page.text,"lxml")  
-# hash_vid = soup.find_all('div',class_ = 'Q5txwe')
-
-# #create 2 lists one with hash ids and one for the titles of the video
-# video_id=[]
-# titles=[]
-# #iterate through the soup to get the list values
-# for video in hash_vid:
-#     # print(video)
-# 	video_id.append(video.parent.parent.parent.parent.attrs['data-id'])
-# 	titles.append(video.text)
-# print(video_id)
-# print(titles)
+#screaping the google drive with BeautifulSoup to get the links and titles of video
+URL = 'https://drive.google.com/drive/folders/1pFHUrmpLv9gEJsvJYKxMdISuQuQsd_qX'
+page = requests.get(URL)
 
 
-# #function prepend the url before the video hash ID
-# def prepend(list, str): 
+soup = bs4.BeautifulSoup(page.text,"lxml")  
+hash_vid = soup.find_all('div',class_ = 'Q5txwe')
+
+#create 2 lists one with hash ids and one for the titles of the video
+video_id=[]
+titles=[]
+#iterate through the soup to get the list values
+for video in hash_vid:
+    # print(video)
+	video_id.append(video.parent.parent.parent.parent.attrs['data-id'])
+	titles.append(video.text)
+print(video_id)
+print(titles)
+
+
+#function prepend the url before the video hash ID
+def prepend(list, str): 
       
-#     # Using format() 
-#     str += '{0}'
-#     list = [str.format(i) for i in list] 
-#     return(list) 
+    # Using format() 
+    str += '{0}'
+    list = [str.format(i) for i in list] 
+    return(list) 
 
 
-# link_prefix= "https://drive.google.com/file/d/"
-# full_link=prepend(video_id, link_prefix)
-# print(prepend(video_id, link_prefix))
+link_prefix= "https://drive.google.com/file/d/"
+full_link=prepend(video_id, link_prefix)
+print(prepend(video_id, link_prefix))
 
 
-# #create a dictionary with the title of the video and url
-# link_and_title=dict(zip(titles, full_link))
+#create a dictionary with the title of the video and url
+link_and_title=dict(zip(titles, full_link))
 
-# print(link_and_title)
+print(link_and_title)
